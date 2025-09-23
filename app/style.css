@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-amber-600: oklch(0.7505 0.1791 58.28);
+  --color-amber-700: oklch(0.6958 0.1596 55.54);
+  --color-green-600: oklch(0.6731 0.1624 144.21);
+  --color-green-700: oklch(0.552 0.1234 157.01);
+  --color-neutral-700: oklch(0.3211 0 0);
+  --color-white: oklch(0.9636 0.0328 107);
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+div.rdp-root {
+  --rdp-accent-color: var(--color-amber-600);
+  --rdp-accent-background-color: --alpha(var(--color-amber-600) / 25%);
+  --rdp-disabled-opacity: 1;
+}
