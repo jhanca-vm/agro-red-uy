@@ -9,6 +9,18 @@
   --color-white: oklch(0.9636 0.0328 107);
 }
 
+@layer base {
+  input {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
+  }
+}
+
 @utility scrollbar-thin {
   scrollbar-width: thin;
 }

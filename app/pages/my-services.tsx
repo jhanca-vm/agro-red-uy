@@ -1,9 +1,10 @@
 import { format } from '@formkit/tempo'
 import { desc, eq } from 'drizzle-orm'
-import { Form } from 'react-router'
+import { Form, redirect } from 'react-router'
 import ServiceEdition from '~/components/service-edition'
 import db from '~/db'
 import servicesTable from '~/db/schema/services'
+import getCurrentUser from '~/lib/utils/get-current-user'
 import type { Route } from './+types/my-services'
 
 export async function action({ request }: Route.ActionArgs) {
@@ -25,8 +26,8 @@ export async function action({ request }: Route.ActionArgs) {
         price: formData.get('price') as string,
         start: new Date(formData.get('start') as string),
         end: new Date(formData.get('end') as string),
-        latitude: Number(formData.get('latitude')),
-        longitude: Number(formData.get('longitude'))
+        latitude: formData.get('latitude') as string,
+        longitude: formData.get('longitude') as string
       })
       .where(eq(servicesTable.id, id))
   }
@@ -34,11 +35,13 @@ export async function action({ request }: Route.ActionArgs) {
   return { ok: true }
 }
 
-export async function loader() {
-  const services = await db
-    .select()
-    .from(servicesTable)
-    .orderBy(desc(servicesTable.start))
+export async function loader({ request }: Route.LoaderArgs) {
+  const [{ data: user }, services] = await Promise.all([
+    getCurrentUser(request.headers.get('Cookie')),
+    db.select().from(servicesTable).orderBy(desc(servicesTable.start))
+  ])
+
+  if (!user) return redirect('/')
 
   return services
 }

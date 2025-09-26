@@ -16,8 +16,8 @@ export async function action({ request }: Route.ActionArgs) {
     price: formData.get('price') as string,
     start: new Date(formData.get('start') as string),
     end: new Date(formData.get('end') as string),
-    latitude: Number(formData.get('latitude')),
-    longitude: Number(formData.get('longitude')),
+    latitude: formData.get('latitude') as string,
+    longitude: formData.get('longitude') as string,
     user_id: Number(formData.get('user-id'))
   })
 

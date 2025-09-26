@@ -1,4 +1,4 @@
-import { date, float, int, mysqlTable, varchar } from 'drizzle-orm/mysql-core'
+import { date, decimal, int, mysqlTable, varchar } from 'drizzle-orm/mysql-core'
 import users from './users'
 
 export default mysqlTable('services', {
@@ -9,8 +9,8 @@ export default mysqlTable('services', {
   price: varchar({ length: 50 }).notNull(),
   start: date().notNull(),
   end: date().notNull(),
-  latitude: float().notNull(),
-  longitude: float().notNull(),
+  latitude: decimal({ precision: 22, scale: 20 }).notNull(),
+  longitude: decimal({ precision: 23, scale: 20 }).notNull(),
   user_id: int()
     .references(() => users.id)
     .notNull()

@@ -3,10 +3,17 @@ import { type ChangeEventHandler, type ReactNode, useId } from 'react'
 
 interface Props {
   label: string
-  type: 'text' | 'email' | 'password' | 'date' | 'select' | 'textarea'
+  type:
+    | 'text'
+    | 'number'
+    | 'email'
+    | 'password'
+    | 'date'
+    | 'select'
+    | 'textarea'
   name: string
   defaultValue?: string
-  value?: string
+  value?: string | number
   required?: boolean
   min?: string
   max?: string

@@ -19,8 +19,8 @@ export default function ServiceEdition({ service }: Props) {
   const [start, setStart] = useState(minStart)
   const [end, setEnd] = useState(format(service.end, 'YYYY-MM-DD'))
   const [location, setLocation] = useState<[number, number]>([
-    service.latitude,
-    service.longitude
+    Number(service.latitude),
+    Number(service.longitude)
   ])
 
   return (
@@ -94,10 +94,28 @@ export default function ServiceEdition({ service }: Props) {
             onChange={(event) => setEnd(event.currentTarget.value)}
           />
         </fieldset>
-        <fieldset className="mb-4">
-          <legend>Ubicación:</legend>
-          <input type="hidden" name="latitude" value={location[0]} />
-          <input type="hidden" name="longitude" value={location[1]} />
+        <fieldset className="mb-4 grid grid-cols-2 gap-4">
+          <legend className="col-span-2">Ubicación:</legend>
+          <Field
+            label="Latitud"
+            type="number"
+            name="latitude"
+            value={location[0]}
+            required
+            onChange={({ currentTarget: { valueAsNumber } }) => {
+              setLocation([valueAsNumber, location[1]])
+            }}
+          />
+          <Field
+            label="Longitud"
+            type="number"
+            name="longitude"
+            value={location[1]}
+            required
+            onChange={({ currentTarget: { valueAsNumber } }) => {
+              setLocation([location[0], valueAsNumber])
+            }}
+          />
         </fieldset>
         <div className="overflow-hidden flex rounded-md">
           <PigeonMap

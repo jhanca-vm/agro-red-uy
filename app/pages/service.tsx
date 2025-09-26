@@ -54,11 +54,17 @@ export default function Service({ loaderData }: Route.ComponentProps) {
           >
             <PigeonMap
               height={300}
-              defaultCenter={[loaderData.latitude, loaderData.longitude]}
+              defaultCenter={[
+                Number(loaderData.latitude),
+                Number(loaderData.longitude)
+              ]}
               defaultZoom={12}
             >
               <Marker
-                anchor={[loaderData.latitude, loaderData.longitude]}
+                anchor={[
+                  Number(loaderData.latitude),
+                  Number(loaderData.longitude)
+                ]}
                 color="var(--color-green-600)"
               />
             </PigeonMap>
